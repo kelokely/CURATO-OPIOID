@@ -1,0 +1,653 @@
+{
+  "_meta": {
+    "name": "MTDL pharmacology ontology (maximum rigor)",
+    "version": "1.1",
+    "description": "Reusable target-class, assay-readout, assay-semantics, and pharmacology inference rules for high-rigor data preparation across GPCR, enzyme, transporter, and ion-channel programs. Intended for use with --pharmacology-rigor maximal.",
+    "notes": [
+      "JSON is used so the config works even when PyYAML is not installed.",
+      "Project-specific overrides can be added under target_class_overrides or by extending pharmacology_rules.",
+      "Assay semantics rules are ordered: specific project overrides should be added near the top."
+    ]
+  },
+  "target_class_overrides": {},
+  "target_class_patterns": [
+    [
+      "gpcr",
+      [
+        "\\bgpcr\\b",
+        "g protein-coupled receptor",
+        "\\bgpr\\d+\\b",
+        "opioid receptor",
+        "cannabinoid receptor",
+        "adrenergic receptor",
+        "dopamine receptor",
+        "serotonin receptor",
+        "histamine receptor",
+        "muscarinic receptor",
+        "chemokine receptor",
+        "somatostatin receptor",
+        "adenosine receptor",
+        "orexin receptor",
+        "melatonin receptor",
+        "vasopressin receptor",
+        "oxytocin receptor",
+        "free fatty acid receptor",
+        "trace amine-associated receptor",
+        "metabotropic glutamate receptor",
+        "\\boprm1\\b",
+        "\\boprd1\\b",
+        "\\boprk1\\b",
+        "\\boprl1\\b",
+        "\\bcnr1\\b",
+        "\\bcnr2\\b",
+        "\\bdrd[1-5]\\b",
+        "\\bhtr[1-7][a-z]?\\b",
+        "\\bchrm[1-5]\\b",
+        "\\badra[12][a-z]?\\b",
+        "\\badrb[1-3]\\b",
+        "\\bcxcr\\d+\\b",
+        "\\bccr\\d+\\b",
+        "\\bsstr[1-5]\\b",
+        "\\badora[123]\\b",
+        "\\boxtr\\b",
+        "\\bavpr[12][ab]?\\b",
+        "\\bffar[1-4]\\b",
+        "\\bmrgpr[a-z0-9]+\\b"
+      ]
+    ],
+    [
+      "enzyme",
+      [
+        "\\benzyme\\b",
+        "\\bhydrolase\\b",
+        "\\bprotease\\b",
+        "\\blipase\\b",
+        "\\besterase\\b",
+        "\\boxidase\\b",
+        "\\breductase\\b",
+        "\\bdehydrogenase\\b",
+        "\\bphosphatase\\b",
+        "\\bpeptidase\\b",
+        "\\btransferase\\b",
+        "\\bsynthase\\b",
+        "\\bcyclooxygenase\\b",
+        "\\bphosphodiesterase\\b",
+        "\\bmonoamine oxidase\\b",
+        "\\bfaah\\b",
+        "\\bmgll\\b",
+        "\\bmagl\\b",
+        "\\bache\\b",
+        "\\bbche\\b",
+        "\\bcathepsin\\b",
+        "\\bcaspase\\b",
+        "\\bmmp\\d+\\b"
+      ]
+    ],
+    [
+      "kinase",
+      [
+        "\\bkinase\\b",
+        "\\bmapk\\b",
+        "\\berk[12]?\\b",
+        "\\bjnk[123]?\\b",
+        "\\bp38\\b",
+        "\\bpi3k\\b",
+        "\\bakt[123]?\\b",
+        "\\bmtor\\b",
+        "\\bcdk\\d+\\b",
+        "\\begfr\\b",
+        "\\bvegfr\\b",
+        "\\bbraf\\b",
+        "\\braf1\\b",
+        "\\bsrc\\b"
+      ]
+    ],
+    [
+      "transporter",
+      [
+        "\\btransporter\\b",
+        "\\bsolute carrier\\b",
+        "\\bslc\\d+[a-z0-9]*\\b",
+        "\\babc[a-z0-9]+\\b",
+        "\\buptake\\b",
+        "\\breuptake\\b",
+        "\\befflux\\b",
+        "\\bvmat[12]?\\b",
+        "\\bdat\\b",
+        "\\bsert\\b",
+        "\\bnet\\b",
+        "\\bglyt[12]?\\b",
+        "\\beat\\d+\\b",
+        "\\boatp1b1\\b",
+        "\\babat\\b"
+      ]
+    ],
+    [
+      "ion_channel",
+      [
+        "\\bion channel\\b",
+        "voltage-gated",
+        "ligand-gated",
+        "potassium channel",
+        "sodium channel",
+        "calcium channel",
+        "chloride channel",
+        "\\btrpv\\d*\\b",
+        "\\btrpa1\\b",
+        "\\btrpm\\d+\\b",
+        "\\bkcn[a-z0-9]+\\b",
+        "\\bscn\\d+[ab]?\\b",
+        "\\bcacn[a-z0-9]+\\b",
+        "\\bkcnh2\\b",
+        "\\bherg\\b",
+        "\\bnicotinic acetylcholine receptor\\b",
+        "\\bgabaa? receptor\\b",
+        "\\bampar\\b",
+        "\\bnmdar\\b"
+      ]
+    ]
+  ],
+  "readout_rules": [
+    [
+      "binding_displacement",
+      [
+        "radioligand",
+        "\\bbinding\\b",
+        "displacement",
+        "competition binding",
+        "competition assay"
+      ]
+    ],
+    [
+      "gpcr_beta_arrestin",
+      [
+        "beta.?arrestin",
+        "arrestin recruitment",
+        "pathhunter",
+        "tango assay",
+        "\\bbret\\b.*arrestin",
+        "\\bfret\\b.*arrestin"
+      ]
+    ],
+    [
+      "gpcr_gtpgs",
+      [
+        "gtp.?gamma.?s",
+        "gtpgammas",
+        "\\[35s\\].*gtp",
+        "g protein activation",
+        "gtp binding"
+      ]
+    ],
+    [
+      "gpcr_camp",
+      [
+        "\\bcamp\\b",
+        "cyclic amp",
+        "camp accumulation",
+        "glosensor",
+        "htrf camp",
+        "forskolin"
+      ]
+    ],
+    [
+      "gpcr_calcium",
+      [
+        "calcium flux",
+        "calcium mobil",
+        "intracellular calcium",
+        "ca2\\+",
+        "ca\\+\\+",
+        "fluo-?4",
+        "aequorin"
+      ]
+    ],
+    [
+      "gpcr_internalization",
+      [
+        "internalization",
+        "endocytosis",
+        "receptor trafficking"
+      ]
+    ],
+    [
+      "gpcr_ip1",
+      [
+        "\\bip1\\b",
+        "inositol phosphate",
+        "ip-one",
+        "phosphoinositide"
+      ]
+    ],
+    [
+      "gpcr_erk",
+      [
+        "erk phosphorylation",
+        "p-erk",
+        "mapk activation"
+      ]
+    ],
+    [
+      "enzyme_activity",
+      [
+        "enzyme activity",
+        "substrate conversion",
+        "product formation",
+        "turnover",
+        "hydrolysis",
+        "cleavage",
+        "fluorogenic substrate",
+        "kinase activity",
+        "phosphorylation",
+        "dephosphorylation",
+        "atp turnover"
+      ]
+    ],
+    [
+      "transporter_uptake",
+      [
+        "substrate uptake",
+        "\\buptake\\b",
+        "\\breuptake\\b",
+        "accumulation assay",
+        "transport inhibition"
+      ]
+    ],
+    [
+      "transporter_efflux",
+      [
+        "\\befflux\\b",
+        "export assay",
+        "substrate efflux"
+      ]
+    ],
+    [
+      "transporter_release",
+      [
+        "substrate release",
+        "\\brelease assay\\b",
+        "neurotransmitter release"
+      ]
+    ],
+    [
+      "ion_channel_current",
+      [
+        "patch clamp",
+        "voltage clamp",
+        "whole-cell current",
+        "\\bcurrent\\b",
+        "electrophysiolog",
+        "conductance",
+        "two-electrode voltage clamp",
+        "\\btevc\\b"
+      ]
+    ],
+    [
+      "ion_channel_membrane_potential",
+      [
+        "membrane potential",
+        "depolarization",
+        "hyperpolarization",
+        "flipr membrane potential"
+      ]
+    ],
+    [
+      "reporter_gene",
+      [
+        "luciferase",
+        "reporter gene",
+        "\\bnfat\\b",
+        "\\bcreb\\b",
+        "transcriptional activation"
+      ]
+    ]
+  ],
+  "effect_direction_rules": [
+    [
+      "blockade",
+      [
+        "blocks? agonist",
+        "inhibition of .* agonist",
+        "competitive antagonist",
+        "neutral antagonist",
+        "insurmountable",
+        "counter.?screen",
+        "current inhibition",
+        "reduces current",
+        "inhibits current",
+        "transport inhibition",
+        "uptake inhibition",
+        "reuptake inhibition"
+      ]
+    ],
+    [
+      "flux",
+      [
+        "transported by",
+        "uptake substrate",
+        "efflux substrate",
+        "substrate uptake",
+        "substrate efflux",
+        "substrate release"
+      ]
+    ],
+    [
+      "modulation",
+      [
+        "allosteric",
+        "\\bpam\\b",
+        "\\bnam\\b",
+        "positive allosteric",
+        "negative allosteric",
+        "potentiator",
+        "positive modulator",
+        "negative modulator"
+      ]
+    ],
+    [
+      "increase",
+      [
+        "\\bagonist\\b",
+        "activation",
+        "stimulation",
+        "recruitment",
+        "potentiat",
+        "enhance",
+        "increase",
+        "facilitates opening",
+        "\\bopener\\b"
+      ]
+    ],
+    [
+      "decrease",
+      [
+        "inverse agon",
+        "reduces constitutive activity",
+        "\\binhibit",
+        "suppression",
+        "reduction",
+        "decrease",
+        "lower",
+        "loss of signal"
+      ]
+    ]
+  ],
+  "assay_semantics_rules": [
+    {
+      "name": "binding_affinity",
+      "endpoint_families": ["binding"],
+      "pharmacology_class": "binding"
+    },
+    {
+      "name": "gpcr_response_blockade",
+      "target_classes": ["gpcr", "receptor_other", "nuclear_receptor"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": [
+        "gpcr_beta_arrestin",
+        "gpcr_gtpgs",
+        "gpcr_camp",
+        "gpcr_calcium",
+        "gpcr_internalization",
+        "gpcr_ip1",
+        "gpcr_erk",
+        "gpcr_generic",
+        "reporter_gene"
+      ],
+      "effect_directions": ["blockade"],
+      "pharmacology_class": "antagonist"
+    },
+    {
+      "name": "gpcr_constitutive_suppression",
+      "target_classes": ["gpcr", "receptor_other", "nuclear_receptor"],
+      "endpoint_families": ["functional"],
+      "patterns": [
+        "inverse agon",
+        "reduces constitutive activity",
+        "constitutive activity"
+      ],
+      "effect_directions": ["decrease"],
+      "pharmacology_class": "inverse_agonist"
+    },
+    {
+      "name": "gpcr_response_activation",
+      "target_classes": ["gpcr", "receptor_other", "nuclear_receptor"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": [
+        "gpcr_beta_arrestin",
+        "gpcr_gtpgs",
+        "gpcr_camp",
+        "gpcr_calcium",
+        "gpcr_internalization",
+        "gpcr_ip1",
+        "gpcr_erk",
+        "gpcr_generic",
+        "reporter_gene"
+      ],
+      "effect_directions": ["increase"],
+      "pharmacology_class": "agonist"
+    },
+    {
+      "name": "enzyme_activity_inhibition",
+      "target_classes": ["enzyme", "kinase"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": ["enzyme_activity", "enzyme_generic"],
+      "effect_directions": ["decrease", "blockade"],
+      "pharmacology_class": "inhibitor"
+    },
+    {
+      "name": "enzyme_activity_activation",
+      "target_classes": ["enzyme", "kinase"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": ["enzyme_activity", "enzyme_generic"],
+      "effect_directions": ["increase"],
+      "pharmacology_class": "activator"
+    },
+    {
+      "name": "transporter_substrate_flux",
+      "target_classes": ["transporter"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": [
+        "transporter_uptake",
+        "transporter_efflux",
+        "transporter_release",
+        "transporter_generic"
+      ],
+      "effect_directions": ["flux"],
+      "pharmacology_class": "substrate"
+    },
+    {
+      "name": "transporter_flux_inhibition",
+      "target_classes": ["transporter"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": [
+        "transporter_uptake",
+        "transporter_efflux",
+        "transporter_release",
+        "transporter_generic"
+      ],
+      "effect_directions": ["decrease", "blockade"],
+      "pharmacology_class": "inhibitor"
+    },
+    {
+      "name": "ion_channel_current_block",
+      "target_classes": ["ion_channel"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": [
+        "ion_channel_current",
+        "ion_channel_membrane_potential",
+        "ion_channel_generic"
+      ],
+      "effect_directions": ["decrease", "blockade"],
+      "pharmacology_class": "blocker"
+    },
+    {
+      "name": "ion_channel_current_activation",
+      "target_classes": ["ion_channel"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": [
+        "ion_channel_current",
+        "ion_channel_membrane_potential",
+        "ion_channel_generic"
+      ],
+      "effect_directions": ["increase"],
+      "pharmacology_class": "activator"
+    }
+  ],
+  "pharmacology_rules": [
+    {
+      "class": "partial_agonist",
+      "target_classes": ["gpcr", "receptor_other", "nuclear_receptor"],
+      "endpoint_families": ["functional"],
+      "patterns": ["partial agon", "partial.?activity"]
+    },
+    {
+      "class": "inverse_agonist",
+      "target_classes": ["gpcr", "receptor_other", "nuclear_receptor"],
+      "endpoint_families": ["functional"],
+      "patterns": ["inverse agon", "inverse.?activity", "reduces constitutive activity"]
+    },
+    {
+      "class": "antagonist",
+      "target_classes": ["gpcr", "receptor_other", "nuclear_receptor"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": [
+        "gpcr_beta_arrestin",
+        "gpcr_gtpgs",
+        "gpcr_camp",
+        "gpcr_calcium",
+        "gpcr_internalization",
+        "gpcr_ip1",
+        "gpcr_erk",
+        "gpcr_generic",
+        "reporter_gene"
+      ],
+      "patterns": [
+        "\\bantagon",
+        "blocks? agonist",
+        "inhibition of .* agonist",
+        "competitive antagonist",
+        "neutral antagonist",
+        "insurmountable",
+        "counter.?screen"
+      ]
+    },
+    {
+      "class": "agonist",
+      "target_classes": ["gpcr", "receptor_other", "nuclear_receptor"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": [
+        "gpcr_beta_arrestin",
+        "gpcr_gtpgs",
+        "gpcr_camp",
+        "gpcr_calcium",
+        "gpcr_internalization",
+        "gpcr_ip1",
+        "gpcr_erk",
+        "gpcr_generic",
+        "reporter_gene"
+      ],
+      "patterns": [
+        "\\bagonist\\b",
+        "superagonist",
+        "stimulation",
+        "recruitment",
+        "activation",
+        "potentiat"
+      ]
+    },
+    {
+      "class": "allosteric_modulator",
+      "target_classes": ["gpcr", "receptor_other", "nuclear_receptor", "ion_channel"],
+      "endpoint_families": ["functional"],
+      "patterns": [
+        "allosteric",
+        "\\bpam\\b",
+        "\\bnam\\b",
+        "positive allosteric",
+        "negative allosteric"
+      ]
+    },
+    {
+      "class": "inhibitor",
+      "target_classes": ["enzyme", "kinase"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": ["enzyme_activity", "enzyme_generic"],
+      "patterns": [
+        "\\binhibit",
+        "suppression",
+        "reduction",
+        "decrease",
+        "blockade"
+      ]
+    },
+    {
+      "class": "activator",
+      "target_classes": ["enzyme", "kinase"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": ["enzyme_activity", "enzyme_generic"],
+      "patterns": [
+        "\\bactivat",
+        "stimulation",
+        "potentiat",
+        "increase activity",
+        "enhance activity"
+      ]
+    },
+    {
+      "class": "substrate",
+      "target_classes": ["transporter"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": ["transporter_uptake", "transporter_efflux", "transporter_release", "transporter_generic"],
+      "patterns": [
+        "transported by",
+        "uptake substrate",
+        "efflux substrate"
+      ]
+    },
+    {
+      "class": "inhibitor",
+      "target_classes": ["transporter"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": ["transporter_uptake", "transporter_efflux", "transporter_release", "transporter_generic"],
+      "patterns": [
+        "reuptake inhibition",
+        "uptake inhibition",
+        "transport inhibition",
+        "reduces uptake",
+        "inhibits transport",
+        "\\binhibit"
+      ]
+    },
+    {
+      "class": "blocker",
+      "target_classes": ["ion_channel"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": ["ion_channel_current", "ion_channel_membrane_potential", "ion_channel_generic"],
+      "patterns": [
+        "channel blocker",
+        "\\bblocker\\b",
+        "current inhibition",
+        "reduces current",
+        "inhibits current",
+        "conductance inhibition",
+        "pore block",
+        "voltage-dependent block"
+      ]
+    },
+    {
+      "class": "activator",
+      "target_classes": ["ion_channel"],
+      "endpoint_families": ["functional"],
+      "assay_readouts": ["ion_channel_current", "ion_channel_membrane_potential", "ion_channel_generic"],
+      "patterns": [
+        "\\bopener\\b",
+        "\\bactivat",
+        "potentiator",
+        "positive modulator",
+        "enhance current",
+        "increase current",
+        "facilitates opening"
+      ]
+    }
+  ]
+}
