@@ -37,7 +37,7 @@ A self-contained scientific reference path that reproduces the study's results f
 config/
   pharmacology_ontology.json        Versioned ontology used for stratification provenance.
 data/
-  stratified/                       Frozen curated-wide matrices for naive, balanced, and maximal arms.
+  stratified/                       Frozen curated-wide matrices for low-, mid-, and high-resolution arms.
   fully_pooled/                     Frozen fully pooled curated-wide and curated-long inputs.
 expected_outputs/
   fully_pooled_vs_stratified_external_contrast.csv
@@ -74,13 +74,13 @@ The supplied ontology is the version used to document the opioid-reference curat
 
 ## Data Included
 
-The repository includes frozen curated CSV inputs derived from public ChEMBL, BindingDB, and PubChem records used for the opioid study.
+The repository includes frozen curated CSV inputs derived from public ChEMBL, BindingDB, PubChem, and the IUPHAR/BPS Guide to Pharmacology (GtoPdb) records used for the opioid study.
 
 The compact stratified arms include curated-wide matrices for:
 
-- `data/stratified/naive`
-- `data/stratified/balanced`
-- `data/stratified/maximal`
+- `data/stratified/low_resolution` (minimal stratification)
+- `data/stratified/mid_resolution` (intermediate stratification)
+- `data/stratified/high_resolution` (finest stratification)
 
 The fully pooled arm includes both curated-wide matrices and sanitized curated-long row-level tables:
 
@@ -113,8 +113,8 @@ python pipeline/benchmark.py \
 Run stratified benchmarks:
 
 ```bash
-python pipeline/benchmark.py --case-dir data/stratified/balanced --ontology config/pharmacology_ontology.json --out results/balanced
-python pipeline/benchmark.py --case-dir data/stratified/maximal --ontology config/pharmacology_ontology.json --out results/maximal
+python pipeline/benchmark.py --case-dir data/stratified/mid_resolution --ontology config/pharmacology_ontology.json --out results/mid_resolution
+python pipeline/benchmark.py --case-dir data/stratified/high_resolution --ontology config/pharmacology_ontology.json --out results/high_resolution
 ```
 
 Build the pooled-vs-stratified contrast:
@@ -122,8 +122,8 @@ Build the pooled-vs-stratified contrast:
 ```bash
 python pipeline/compare.py \
   --pooled results/fully_pooled/model_performance_table.csv \
-  --stratified results/balanced/model_performance_table.csv results/maximal/model_performance_table.csv \
-  --stratified-labels balanced maximal \
+  --stratified results/mid_resolution/model_performance_table.csv results/high_resolution/model_performance_table.csv \
+  --stratified-labels mid_resolution high_resolution \
   --pooled-long-development data/fully_pooled/development/curated_long.csv \
   --out results/fully_pooled_vs_stratified_external_contrast.csv
 ```

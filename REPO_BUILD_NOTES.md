@@ -8,7 +8,7 @@ Completed:
 
 - Clean repository structure created.
 - Versioned ontology copied to `config/pharmacology_ontology.json`.
-- Curated-wide matrices copied for `naive`, `balanced`, `maximal`, and `fully_pooled`.
+- Curated-wide matrices copied for `low_resolution`, `mid_resolution`, `high_resolution`, and `fully_pooled`.
 - Fully pooled curated-long tables copied and sanitized to remove machine-specific filesystem paths.
 - Expected locked pooled-vs-stratified contrast table copied to `expected_outputs/`.
 - Reference benchmark, ontology validation, and contrast-table scripts added.

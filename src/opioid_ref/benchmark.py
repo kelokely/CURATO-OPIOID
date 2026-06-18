@@ -266,7 +266,7 @@ def run_case(
     ontology = load_ontology(ontology_path)
     dev = pd.read_csv(case_dir / "development" / "curated_wide.csv")
     external = pd.read_csv(case_dir / "external" / "curated_wide.csv")
-    endpoints = endpoint_columns(dev)
+    endpoints = [endpoint for endpoint in endpoint_columns(dev) if endpoint.column in external.columns]
     if quick:
         endpoints = endpoints[: min(3, len(endpoints))]
         for endpoint in endpoints:
