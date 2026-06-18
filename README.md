@@ -1,8 +1,35 @@
-# Opioid Bioactivity Stratification Reference
+# CURATO-OPIOID
 
-This repository is a minimal reference implementation for reproducing the opioid-receptor bioactivity curation and benchmarking study. It demonstrates pharmacological and assay-readout stratification of public bioactivity data for MOR, DOR, KOR, and NOP/NOR, followed by scaffold-locked external QSAR benchmarking.
+Pharmacology- and assay-readout-aware curation and QSAR benchmarking of public opioid-receptor bioactivity data
 
-This is not the production pipeline. It contains the scientific reference path needed for reproducibility: frozen curated CSV inputs, a versioned pharmacology/assay-readout ontology, model training, external validation, and pooled-vs-stratified contrast generation.
+CURATO-OPIOID is a reference implementation of a curation and benchmarking framework that treats pharmacological mechanism and assay readout as primary axes of dataset definition, applied before any model is trained. It is the opioid-receptor instantiation of the CURATO approach to bioactivity-data curation.
+
+## The Problem It Addresses
+
+Public bioactivity databases are heterogeneous in ways that standardization of structures and units does not resolve. The same compound and target can carry agonist, antagonist, and inhibitor records, measured through binding displacement, cAMP, β-arrestin recruitment, or [³⁵S]GTPγS assays — readouts that quantify different biological events. A model trained on these records pooled together still emits predictions, but those predictions correspond to no single, well-defined quantity: the same agonist can be potent in one functional readout and markedly weaker in another, by biology rather than noise. The resulting QSAR claim is therefore unverifiable, because there is no coherent activity the pooled endpoint measures.
+
+CURATO-OPIOID resolves this by making pharmacology class and assay readout explicit, auditable components of the dataset contract, so that each modeled endpoint corresponds to a defined receptor, activity scale, mechanism, and assay format — and so that the claim a model supports is testable.
+
+## What It Does
+
+Applied to the four opioid receptors (μ, δ, κ, and nociceptin/orphanin FQ; MOR, DOR, KOR, NOP), the framework:
+
+- Reconciles multi-source public records into evidence groups that preserve source agreement and conflict, rather than concatenating overlapping data as if it were independent.
+- Standardizes chemical identity deterministically, so that scaffold assignment, deduplication, and descriptor generation rest on stable structures.
+- Assigns each record an endpoint family, pharmacology class, and assay readout, and reroutes binding-displacement records filed under functional labels so that affinity measurements are not modeled as functional potency.
+- Stratifies functional endpoints by mechanism and readout before modeling, producing biologically coherent QSAR tasks in place of one ambiguous "functional activity" label.
+- Benchmarks each endpoint under scaffold-locked external validation across five model families, with bootstrap confidence intervals, distribution-shift diagnostics, and SHAP attribution.
+- Contrasts the stratified endpoints against a fully pooled baseline, demonstrating that pooled functional models attain apparently strong performance by predicting binding affinity for the majority of their records — that is, by answering a different question than their label claims.
+
+## Why It Is Built This Way
+
+The central premise is that the validity of a QSAR claim is determined first by how the dataset is defined, not by model architecture. CURATO-OPIOID is therefore organized around the dataset contract: endpoint meaning, evidence quality, and validation context are fixed before training, and the modeling step is downstream of, and constrained by, the curation logic.
+
+The pharmacological knowledge that drives stratification is supplied as a separate, versioned ontology file rather than embedded in code. This makes the curation logic inspectable, makes the stratification reproducible against a pinned ontology version, and means the same framework extends to other target classes by describing their assays and mechanisms rather than by rewriting the pipeline. The general form of this approach is CURATO; this repository is its opioid demonstration.
+
+## What This Repository Provides
+
+A self-contained scientific reference path that reproduces the study's results from frozen curated inputs: the curated bioactivity datasets, the versioned pharmacology/assay-readout ontology, model training and scaffold-locked external validation, and the pooled-versus-stratified contrast. It is a reference implementation intended for reproduction and reuse, not a production system.
 
 ## Repository Structure
 
@@ -114,7 +141,3 @@ Elokely et al. Pharmacological and assay-readout stratification of opioid-recept
 ## License
 
 This repository is distributed for academic and non-commercial research use under CC BY-NC 4.0. See `LICENSE`.
-
-## Reproducibility Note
-
-This repository is a public reference implementation. It intentionally omits Slurm/HPC wrappers, internal synchronization scripts, production infrastructure, exploratory analyses, raw large result bundles, and machine-specific paths.
