@@ -132,11 +132,13 @@ The expected locked contrast table from the manuscript run is stored in `expecte
 
 ## Citation
 
-If you use this repository, please cite:
+If you use this repository or its curated bioactivity data, please cite the associated paper:
 
-```text
-Elokely et al. Pharmacological and assay-readout stratification of opioid-receptor bioactivity data for reproducible QSAR benchmarking. DOI: [TO BE ADDED]
-```
+Nael, M. A.; Alakonda, L. M.; Ghosh, A.; Ward, S. J.; Liu Chen, L.-Y.; Rajadhyaksha, A. M.; Abou-Gharbia, M.; Elokely, K. M. Pharmacological Stratification of Public Bioactivity Databases: A Reusable, OECD-Anchored Curation and Benchmarking Framework Demonstrated for Opioid Receptors. Digital Discovery, 2026, accepted. https://doi.org/10.1039/D6DD00392C.
+
+The paper is accepted in **Digital Discovery**. Its registered DOI is [10.1039/D6DD00392C](https://doi.org/10.1039/D6DD00392C).
+
+The archived data, ontology, and reference implementation are also available on Zenodo: [CURATO-OPIOID v1.0.0](https://doi.org/10.5281/zenodo.22760975).
 
 ## License
 
